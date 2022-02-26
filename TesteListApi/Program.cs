@@ -12,12 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region DB CONTEXT adding to program
 builder.Services.AddDbContext<DataContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+#endregion
 
-//Enable CORS
+#region Enable CORS
 builder.Services.AddCors(opts =>
 {
     opts.AddPolicy(name: myAllowSpecificOrigins,
@@ -28,15 +30,17 @@ builder.Services.AddCors(opts =>
             .AllowAnyHeader();
         });
 });
+#endregion
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+#region  Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+#endregion
 
 app.UseHttpsRedirection();
 
