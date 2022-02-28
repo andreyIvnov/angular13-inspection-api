@@ -52,7 +52,7 @@ export class AddEditInspectionComponent implements OnInit {
 
       var showAddSuccess = document.getElementById('add-success-alert');
       if(showAddSuccess){
-        showAddSuccess.style.display="black";
+        showAddSuccess.style.display="block";
       }
 
       setTimeout(function(){
@@ -64,6 +64,6 @@ export class AddEditInspectionComponent implements OnInit {
   }
 
   updateInspection(){
-
+    //do it 
   }
 }
