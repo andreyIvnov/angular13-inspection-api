@@ -1,6 +1,11 @@
 <!-- Add inspection trigger modal on a right-upper side of-->
-<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalAdd()">
+<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalAddInspection()">
   Add Inspection
+</button>
+
+<!-- Add inspection trigger modal on a right-upper side of-->
+<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalAddInspectionType()">
+  Add Inspection type
 </button>
 
 <!-- Button trigger modal on a right-upper side of -->
@@ -59,6 +64,11 @@
   Inspection successfully deleted!
 </div>
 
+<div class="alert alert-success" role="alert" id="add-inspection-type-success-alert">
+  Inspection Type successfully added!
+</div>
+
+
 
   
 <!--Incpection types Modal (Pop-Up) -->
@@ -90,6 +100,7 @@
       <div class="modal-body">
         <!-- using on a dother component (add-edit) sharing by Input decorator-->
         <app-add-edit-inspection [inspection]="inspection" *ngIf="activateAddEditInspectionComponent"></app-add-edit-inspection>
+        <app-add-inspection-type [inspectionType]="inspectionType" *ngIf="activateAddInspectionTypeComponent"></app-add-inspection-type>
       </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { InspectionComponent } from './components/inspection/inspection.componen
 import { ShowInspectionComponent } from './components/inspection/show-inspection/show-inspection.component';
 import { AddEditInspectionComponent } from './components/inspection/add-edit-inspection/add-edit-inspection.component';
 import { InspectionApiService } from './services/inspection-api.service';
+import { AddInspectionTypeComponent } from './components/inspection/add-inspection-type/add-inspection-type.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { InspectionApiService } from './services/inspection-api.service';
     InspectionComponent,
     ShowInspectionComponent,
     AddEditInspectionComponent,
+    AddInspectionTypeComponent
   ],
   imports: [
     BrowserModule,
