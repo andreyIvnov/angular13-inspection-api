@@ -1,0 +1,12 @@
+<form>
+    <!--inspection name insert row-->
+    <div class="mb-3">
+        <label for="inspectionName" class="form-label">Inspection name</label>
+        <input type="text" class="form-control" [(ngModel)]="inspectionName" name="inspectionName">
+    </div>
+
+    <button (click)="addInspectionType()" class="btn btn-primary">
+        Add
+    </button>
+
+</form>

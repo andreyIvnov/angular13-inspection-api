@@ -39,11 +39,13 @@ export class ShowInspectionComponent implements OnInit {
   //Variabless (Properties)
   modalTitle:string;
   activateAddEditInspectionComponent:boolean = false;
+  activateAddInspectionTypeComponent:boolean = false;
   inspection: any;
+  inspectionType:any;
 
 
-
-  modalAdd(){
+// INSPECTION
+  modalAddInspection(){
     this.inspection = {
       id: 0,
       status:null,
@@ -87,8 +89,20 @@ export class ShowInspectionComponent implements OnInit {
   }
 
 
+  //INSPECTION TYPE
+  modalAddInspectionType(){
+    this.inspectionType = {
+      id:0,
+      inspectionName:null
+    }
+    this.modalTitle = "Add Inspection Type";
+    this.activateAddInspectionTypeComponent = true;
+  }
+
+
   modalClose(){
     this.activateAddEditInspectionComponent = false;
+    this.activateAddInspectionTypeComponent = false;
     this.inspectionList$ = this.service.getInspectionList();
   }
 
