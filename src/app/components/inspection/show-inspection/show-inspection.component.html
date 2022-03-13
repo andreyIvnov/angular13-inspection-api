@@ -1,6 +1,11 @@
 <!-- Add inspection trigger modal on a right-upper side of-->
-<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalAdd()">
+<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalAddInspection()">
   Add Inspection
+</button>
+
+<!-- Add inspection trigger modal on a right-upper side of-->
+<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modalAddInspectionType()">
+  Add Inspection type
 </button>
 
 <!-- Button trigger modal on a right-upper side of -->
@@ -15,6 +20,7 @@
         <th>Inspection Type</th>
         <th>Status</th>
         <th>Comments</th>
+        <th>Options</th>
     </thead>
     <tbody>
         <tr *ngFor="let item of inspectionList$|async">
@@ -23,40 +29,78 @@
             <!-- <td>{{item.inspectionTypeId}}</td> -->
             <td>{{item.status}}</td>
             <td>{{item.comments}}</td>
+            <td>
+
+              <!--Edit button-->
+              <button class="btn btn-outline-primary me-2 mb-1" (click)="modalEdit(item)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                </svg>
+              </button>
+
+              <!--Delete button-->
+              <button class="btn btn-outline-danger me-2 mb-1" (click)="delete(item)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                </svg>
+              </button>
+
+            </td>
         </tr>
     </tbody>
 </table>
 
 
-  
-  <!--Incpection types Modal (Pop-Up) -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Inspection Types</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p *ngFor="let type of inspectionTypesList$|async">{{type.id}} - {{type.inspectionName}}</p>
-        </div>
+<!--Successfully Alerts -->
+<div class="alert alert-success" role="alert" id="add-success-alert">
+  Inspection successfully added!
+</div>
 
+<div class="alert alert-success" role="alert" id="update-success-alert">
+  Inspection successfully updated!
+</div>
+
+<div class="alert alert-success" role="alert" id="delete-success-alert">
+  Inspection successfully deleted!
+</div>
+
+<div class="alert alert-success" role="alert" id="add-inspection-type-success-alert">
+  Inspection Type successfully added!
+</div>
+
+
+
+  
+<!--Incpection types Modal (Pop-Up) -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inspection Types</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+        <p *ngFor="let type of inspectionTypesList$|async">{{type.id}} - {{type.inspectionName}}</p>
+      </div>
+
     </div>
   </div>
+</div>
 
 
 
-<!--add new inspection Modal (Pop-up)-->
+<!--add or edit new inspection Modal (Pop-up)-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">{{modalTitle}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalClose()" id="add-edit-modal-close"></button>
       </div>
       <div class="modal-body">
-        <app-add-edit-inspection></app-add-edit-inspection>
+        <!-- using on a dother component (add-edit) sharing by Input decorator-->
+        <app-add-edit-inspection [inspection]="inspection" *ngIf="activateAddEditInspectionComponent"></app-add-edit-inspection>
+        <app-add-inspection-type [inspectionType]="inspectionType" *ngIf="activateAddInspectionTypeComponent"></app-add-inspection-type>
       </div>
     </div>
   </div>

@@ -39,11 +39,13 @@ export class ShowInspectionComponent implements OnInit {
   //Variabless (Properties)
   modalTitle:string;
   activateAddEditInspectionComponent:boolean = false;
+  activateAddInspectionTypeComponent:boolean = false;
   inspection: any;
+  inspectionType:any;
 
 
-
-  modalAdd(){
+// INSPECTION
+  modalAddInspection(){
     this.inspection = {
       id: 0,
       status:null,
@@ -52,6 +54,56 @@ export class ShowInspectionComponent implements OnInit {
     }
     this.modalTitle = "Add Inspection";
     this.activateAddEditInspectionComponent = true;
+  }
+
+  modalEdit(item:any){
+    this.inspection = item;
+    this.modalTitle = "Edit Inspection";
+    this.activateAddEditInspectionComponent = true;
+  }
+
+  delete(item:any){
+    if(confirm(`Are you sure you want to delete inspection ${item.id}`)){
+      this.service.deleteInspection(item.id).subscribe(res =>{
+
+        var closeModalBtn = document.getElementById('add-edit-modal-close');
+        if(closeModalBtn){
+          closeModalBtn.click();
+        }
+
+
+        var showDeleteSuccess = document.getElementById('delete-success-alert');
+        if(showDeleteSuccess){
+          showDeleteSuccess.style.display="block";
+        }
+  
+        setTimeout(function(){
+          if(showDeleteSuccess){
+            showDeleteSuccess.style.display = "none";
+          }
+        }, 4000);
+        this.inspectionList$ = this.service.getInspectionList();
+      })
+    }
+
+  }
+
+
+  //INSPECTION TYPE
+  modalAddInspectionType(){
+    this.inspectionType = {
+      id:0,
+      inspectionName:null
+    }
+    this.modalTitle = "Add Inspection Type";
+    this.activateAddInspectionTypeComponent = true;
+  }
+
+
+  modalClose(){
+    this.activateAddEditInspectionComponent = false;
+    this.activateAddInspectionTypeComponent = false;
+    this.inspectionList$ = this.service.getInspectionList();
   }
 
 }
